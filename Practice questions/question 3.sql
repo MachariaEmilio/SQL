@@ -18,15 +18,14 @@ select * FROM customer;
 SELECT * FROM categories;
 SELECT * FROM purchases;
 
+--method 1
 select customer_name from customer c join purchases p on c.customer_id =p.customer_id 
 group by c.customer_id ,c.customer_name having COUNT(DISTINCT p.category_id) =(select COUNT(*) from categories)
 
 
+--method 2
+select customer_name from customer where customer_id=(
 
-
---select customer_name from customer where customer_id=(
-with id_value as (
-select customer_id from purchases group by customer_id having count(distinct category_id)  = (select COUNT(*) from categories)
+select customer_id from purchases group by customer_id
+having count(distinct category_id)  = (select COUNT(*) from categories)
 )
-select customer_name from customer where customer_id =1
---);

@@ -17,4 +17,12 @@ create table departments(department_id int , department_name varchar(13));
 
 insert into departments values(1,'HR'),(2,'Finance');
 
-select * from departments;
+select * from employees
+
+
+
+SELECT d.department_name, AVG(e.salary) AS average_salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+GROUP BY d.department_name
+HAVING COUNT(e.employee_id) > 5;
